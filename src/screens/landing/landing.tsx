@@ -1,12 +1,14 @@
-import React from 'react';
-import { SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { SafeAreaView, View } from 'react-native';
 import { Button, useTheme } from 'react-native-paper';
+import { Switch, LightBulb } from '../../components';
 
 interface Props {
   navigation: any;
 }
 
 export const LandingPage = ({ navigation }: Props) => {
+  const [enabled, setEnabled] = useState(true);
   const { colors } = useTheme();
   return (
     <SafeAreaView style={{ backgroundColor: colors.background, flex: 1 }}>
@@ -16,6 +18,15 @@ export const LandingPage = ({ navigation }: Props) => {
         onPress={() => navigation.jumpTo('Settings')}>
         Press me
       </Button>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
+        }}>
+        <LightBulb enabled={enabled} />
+        <Switch enabled={enabled} onPress={() => setEnabled(!enabled)} />
+      </View>
     </SafeAreaView>
   );
 };
