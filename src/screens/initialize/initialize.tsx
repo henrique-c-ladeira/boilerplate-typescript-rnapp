@@ -17,7 +17,7 @@ export const Initialize = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       navigation.navigate('Home');
     })();
-  });
+  }, []);
 
   return (
     <SafeAreaView
