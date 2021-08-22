@@ -1,39 +1,24 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-import { LandingPage } from '../screens/landing';
-import { Settings } from '../screens/settings';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Initialize } from '../screens/initialize';
+import { HomeTabs } from './home-tabs';
 
 type RootStackParamList = {
-  Landing: undefined;
-  Settings: undefined;
+  Initialize: undefined;
+  Home: undefined;
 };
 
-const Stack = createMaterialBottomTabNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const Routes = () => (
   <NavigationContainer>
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Landing"
-        component={LandingPage}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="blur-circular" color={color} size={26} />
-          ),
-        }}
-      />
-      <Stack.Screen
-        name="Settings"
-        component={Settings}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="settings" color={color} size={26} />
-          ),
-        }}
-      />
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="Initialize" component={Initialize} />
+      <Stack.Screen name="Home" component={HomeTabs} />
     </Stack.Navigator>
   </NavigationContainer>
 );
