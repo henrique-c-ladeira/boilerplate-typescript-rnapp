@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from '../store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { put, takeEvery } from '@redux-saga/core/effects';
+import { all, put, takeEvery } from '@redux-saga/core/effects';
 
 const initialState = 'light';
 
@@ -19,9 +19,13 @@ export const toggleAsync = () => ({
   type: 'theme/toggleAsync',
 });
 
+export const getThemeAsync = () => ({
+  type: 'theme/getThemeAsync',
+});
+
 export const { setLight, setDark, toggle } = themeSlice.actions;
 
-export function* themeSaga() {
+export function* toggleThemeSaga() {
   try {
     const theme: string | null = yield AsyncStorage.getItem('@theme');
     yield AsyncStorage.setItem('@theme', theme === 'light' ? 'dark' : 'light');
@@ -29,8 +33,22 @@ export function* themeSaga() {
   } catch (err) {}
 }
 
+export function* getThemeSaga() {
+  try {
+    const theme: string | null = yield AsyncStorage.getItem('@theme');
+    if (theme === 'dark') {
+      yield put(setDark());
+    } else {
+      yield put(setLight());
+    }
+  } catch (err) {}
+}
+
 export function* watchThemeSaga() {
-  yield takeEvery(toggleAsync().type, themeSaga);
+  yield all([
+    takeEvery(toggleAsync().type, toggleThemeSaga),
+    takeEvery(getThemeAsync().type, getThemeSaga),
+  ]);
 }
 
 export const selectTheme = (state: RootState) => state.theme;
