@@ -5,11 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import { LandingPage } from '../screens/landing';
 import { Settings } from '../screens/settings';
-
-type RootTabParamList = {
-  Landing: undefined;
-  Settings: undefined;
-};
+import { RootTabParamList } from '../@types/navigation';
 
 const BottomTab = createMaterialBottomTabNavigator<RootTabParamList>();
 

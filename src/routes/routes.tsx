@@ -3,11 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Initialize } from '../screens/initialize';
 import { HomeTabs } from './home-tabs';
-
-type RootStackParamList = {
-  Initialize: undefined;
-  Home: undefined;
-};
+import { RootStackParamList } from '../@types/navigation';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
