@@ -9,15 +9,18 @@ import { PaperProvider } from './src/providers';
 import { StatusBar } from './src/components/status-bar';
 import { Provider } from 'react-redux';
 import store from './src/store';
+import { ErrorBoundary } from './src/components/error-boundary/error-boundary';
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <PaperProvider>
-        <StatusBar />
-        <Routes />
-      </PaperProvider>
-    </Provider>
+    <ErrorBoundary>
+      <Provider store={store}>
+        <PaperProvider>
+          <StatusBar />
+          <Routes />
+        </PaperProvider>
+      </Provider>
+    </ErrorBoundary>
   );
 };
 
