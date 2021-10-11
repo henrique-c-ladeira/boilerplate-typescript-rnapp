@@ -8,10 +8,9 @@ const sagaMonitor = reactotron.createSagaMonitor!();
 
 const sagaMiddleware = createSagaMiddleware({ sagaMonitor });
 
-const middlewares = compose(
-  applyMiddleware(sagaMiddleware),
-  reactotron?.createEnhancer!(),
-);
+const middlewares = __DEV__
+  ? compose(applyMiddleware(sagaMiddleware), reactotron?.createEnhancer!())
+  : applyMiddleware(sagaMiddleware);
 
 const store = createStore(rootReducer, middlewares);
 sagaMiddleware.run(rootSaga);
