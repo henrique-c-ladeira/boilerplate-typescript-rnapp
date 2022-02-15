@@ -5,20 +5,21 @@ if (__DEV__) {
 }
 import React from 'react';
 import { Routes } from './src/routes';
-import { PaperProvider } from './src/providers';
 import { StatusBar } from './src/components/status-bar';
 import { Provider } from 'react-redux';
 import store from './src/store';
 import { ErrorBoundary } from './src/components/error-boundary/error-boundary';
+import { ThemeProvider } from 'styled-components/native';
+import { theme } from './src/theme';
 
 const App = () => {
   return (
     <ErrorBoundary>
       <Provider store={store}>
-        <PaperProvider>
+        <ThemeProvider theme={theme}>
           <StatusBar />
           <Routes />
-        </PaperProvider>
+        </ThemeProvider>
       </Provider>
     </ErrorBoundary>
   );
